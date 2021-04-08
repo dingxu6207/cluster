@@ -8,14 +8,13 @@ Created on Tue Sep 22 09:09:58 2020
 import pandas as pd
 import numpy as np
 
-
 #df = pd.read_csv('vizier_votable.tsv', sep = ';', encoding='gbk')
 
 #df = pd.read_csv('Be9910.tsv', sep = ';', encoding='gbk')
 #df = pd.read_csv('Be18.tsv', sep = ';', encoding='gbk')#NGC6819.tsv
 #df = pd.read_csv('NGC714210.tsv', sep = ';', encoding='gbk')#NGC6819.tsv
 #df = pd.read_csv('NGC559.tsv', sep = ';', encoding='gbk')
-df = pd.read_csv('stock2.tsv', sep = ';', encoding='gbk')
+df = pd.read_csv('Be31.tsv', sep = ';', encoding='gbk')
 dataframe = df.dropna()
 
 #npgaia = dataframe.as_matrix()
@@ -38,4 +37,6 @@ for i in range(0,hang):
         
 arraydata = np.array(temp)
 
-np.savetxt('stock2.txt', arraydata)
+
+
+np.savetxt('Be31.txt', arraydata)

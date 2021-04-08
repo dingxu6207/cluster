@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import MultipleLocator
 
-data = np.loadtxt('stock2.txt')
+data = np.loadtxt('M67.txt')
 print(len(data))
 
 X = np.copy(data[:,0:5])
@@ -32,9 +32,9 @@ print(r1)
 
 datapro = np.column_stack((data ,cluster_labels))
 
-highdata = datapro[datapro[:,8] == 2]
-lowdata = datapro[datapro[:,8] == 1]
-meandata = datapro[datapro[:,8] == -1]
+highdata = datapro[datapro[:,8] == 0]
+lowdata = datapro[datapro[:,8] == -1]
+meandata = datapro[datapro[:,8] == 1]
 
 plt.figure(1)
 plt.scatter(lowdata[:,3], lowdata[:,4], marker='o', color='grey',s=5.0)
@@ -65,11 +65,12 @@ plt.figure(3)
 highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
 loaddata = np.vstack((highdataGmag,highdataBPRP))
-np.savetxt('BPRPG.txt', loaddata)
+np.savetxt('BPRPG1.txt', loaddata)
 plt.xlim((-1,4))
-#plt.ylim((6,20))
+#plt.ylim((5,22))
 #plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
+#plt.scatter(meandata[:,6]-meandata[:,7], meandata[:,5], marker='o', color='lightGreen',s=5)
 x_major_locator = MultipleLocator(1)
 plt.xlabel('BP-RP',fontsize=14)
 #plt.xlabel('G-RP',fontsize=14)

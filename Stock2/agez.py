@@ -7,11 +7,15 @@ Created on Wed Apr  7 23:08:48 2021
 #https://webda.physics.muni.cz/cgi-bin/ocl_page.cgi?dirname=st02
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.spatial import cKDTree
 
 BPRPG = np.loadtxt('BPRPG.txt')
+BPRPG = BPRPG.T
+BPRPG = BPRPG[BPRPG[:,0]<19]
 
-G = BPRPG[0,:]
-BPRP = BPRPG[1,:]
+
+G = BPRPG[:,0]
+BPRP = BPRPG[:,1]
 
 plt.figure(0)
 plt.scatter(BPRP, G, marker='o', color='lightcoral',s=5)
@@ -29,3 +33,20 @@ temBPRP = temdata[:,24]-temdata[:,26]
 
 plt.plot(temBPRP+0.53, temG+8.59,'.')
 
+
+yuanBPRPG = [(BPRP, G)]
+npyBPRPG = np.array(yuanBPRPG)[0].T
+
+mBPRPG = [(temdata[:,3],temBPRP+0.53,temG+8.59)]
+nmBPRPG = np.array(mBPRPG)[0].T
+
+kdt = cKDTree(nmBPRPG[:,1:])#nmBPRPG[:,1:]
+dist, indices = kdt.query(npyBPRPG)
+
+sumtem = 0
+for i in range(len(indices)):
+    index = indices[i]
+    #nmBPRPG[index][0]
+    sumtem = sumtem + nmBPRPG[index][0]
+
+print(sumtem)
