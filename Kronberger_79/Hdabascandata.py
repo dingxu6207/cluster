@@ -11,11 +11,8 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import MultipleLocator
-import seaborn as sns
 
-sns.set()
-
-data = np.loadtxt('Be31.txt')
+data = np.loadtxt('kronberger79.txt')
 print(len(data))
 
 X = np.copy(data[:,0:5])
@@ -26,7 +23,7 @@ X = StandardScaler().fit_transform(X)
 data_zs = np.copy(X)
 
 
-clusterer = hdbscan.HDBSCAN(min_cluster_size=10)
+clusterer = hdbscan.HDBSCAN(min_cluster_size=13)
 cluster_labels = clusterer.fit_predict(data_zs)
 
 r1 = pd.Series(cluster_labels).value_counts()
@@ -35,19 +32,9 @@ print(r1)
 
 datapro = np.column_stack((data ,cluster_labels))
 
-highdata = datapro[datapro[:,8] == 14]
+highdata = datapro[datapro[:,8] == 5]
 lowdata = datapro[datapro[:,8] == -1]
-meandata = datapro[datapro[:,8] == 7]
-
-plt.figure(10)
-sns.kdeplot(highdata[:,3],shade=True)
-sns.kdeplot(meandata[:,3],shade=True)
-plt.xlabel('pmRA',fontsize=14)
-
-plt.figure(11)
-sns.kdeplot(highdata[:,2],shade=True)
-sns.kdeplot(meandata[:,2],shade=True)
-plt.xlabel('PLX',fontsize=14)
+meandata = datapro[datapro[:,8] == 10]
 
 plt.figure(1)
 plt.scatter(lowdata[:,3], lowdata[:,4], marker='o', color='grey',s=5.0)
@@ -79,7 +66,7 @@ highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
 loaddata = np.vstack((highdataGmag,highdataBPRP))
 np.savetxt('BPRPG1.txt', loaddata)
-plt.xlim((-1,4))
+plt.xlim((1,6))
 #plt.ylim((5,22))
 #plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)

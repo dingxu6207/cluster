@@ -18,8 +18,9 @@ from matplotlib.animation import FuncAnimation
 import imageio
 from skimage import draw
 from scipy.optimize import curve_fit
+import hdbscan
 
-data = np.loadtxt('Be23.txt')
+data = np.loadtxt('Be31.txt')
 print(len(data))
 #data = data[data[:,2]>0]
 #data = data[data[:,2]<1]
@@ -38,8 +39,11 @@ X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.26, min_samples = 13)
+clt = DBSCAN(eps = 0.24, min_samples = 12)
 datalables = clt.fit_predict(data_zs)
+
+#clusterer = hdbscan.HDBSCAN(min_cluster_size=10)
+#datalables = clusterer.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
 
@@ -53,7 +57,7 @@ lowdata = datapro[datapro[:,8] == -1]
 np.savetxt('highdata.txt', highdata)
 np.savetxt('lowdata.txt',  lowdata)
 
-arcmin = 15
+arcmin = 10
 temp = [0 for i in range (arcmin*2)]
 def lendata(datax,RAmean, DECmean):
     data = np.copy(datax)

@@ -18,8 +18,9 @@ from matplotlib.animation import FuncAnimation
 import imageio
 from skimage import draw
 from scipy.optimize import curve_fit
+import hdbscan
 
-data = np.loadtxt('Be23.txt')
+data = np.loadtxt('Be31.txt')
 print(len(data))
 #data = data[data[:,2]>0]
 #data = data[data[:,2]<1]
@@ -38,8 +39,11 @@ X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.26, min_samples = 13)
+clt = DBSCAN(eps = 0.24, min_samples = 12)
 datalables = clt.fit_predict(data_zs)
+
+#clusterer = hdbscan.HDBSCAN(min_cluster_size=10)
+#datalables = clusterer.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
 
@@ -56,7 +60,7 @@ prallex = 1000/np.mean(highdata[:,2])
 np.savetxt('highdata.txt', highdata)
 np.savetxt('lowdata.txt',  lowdata)
 
-arcmin = 8
+arcmin = 18
 #highdata[:,5] = highdata[:,5] + 5 - 5*np.log10(prallex)
 highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
@@ -106,10 +110,10 @@ def cdfdata(datamass,RAmean,DECmean):
        
 #highmass <=14.5  mediummass >14.5 and <=17     low-mass>17
     
-higmass = highdata[highdata[:,5] <= 16]
-lowmass = highdata[highdata[:,5] > 18]
-medimmass = highdata[highdata[:,5] > 16]
-medimmass = medimmass[medimmass[:,5] <= 18]
+higmass = highdata[highdata[:,5] <= 18]
+lowmass = highdata[highdata[:,5] > 19]
+medimmass = highdata[highdata[:,5] > 18]
+medimmass = medimmass[medimmass[:,5] <= 19]
 
 RAmean  = np.mean(highdata[:,0])
 DECmean = np.mean(highdata[:,1])

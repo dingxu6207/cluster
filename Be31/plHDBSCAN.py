@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Apr  7 20:59:11 2021
+Created on Fri Apr  9 14:07:50 2021
 
 @author: dingxu
 """
@@ -11,11 +11,9 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import MultipleLocator
-import seaborn as sns
+from matplotlib.pyplot import cm
 
-sns.set()
-
-data = np.loadtxt('Be31.txt')
+data = np.loadtxt('Be3140.txt')
 print(len(data))
 
 X = np.copy(data[:,0:5])
@@ -35,19 +33,9 @@ print(r1)
 
 datapro = np.column_stack((data ,cluster_labels))
 
-highdata = datapro[datapro[:,8] == 14]
+highdata = datapro[datapro[:,8] == 22]
 lowdata = datapro[datapro[:,8] == -1]
 meandata = datapro[datapro[:,8] == 7]
-
-plt.figure(10)
-sns.kdeplot(highdata[:,3],shade=True)
-sns.kdeplot(meandata[:,3],shade=True)
-plt.xlabel('pmRA',fontsize=14)
-
-plt.figure(11)
-sns.kdeplot(highdata[:,2],shade=True)
-sns.kdeplot(meandata[:,2],shade=True)
-plt.xlabel('PLX',fontsize=14)
 
 plt.figure(1)
 plt.scatter(lowdata[:,3], lowdata[:,4], marker='o', color='grey',s=5.0)
@@ -73,6 +61,8 @@ plt.scatter(lGmag, lparallax, marker='o', color='grey',s=5)
 plt.scatter(hGmag, hparallax, marker='o', color='lightcoral',s=5)
 plt.scatter(mGmag, mparallax, marker='o', color='lightGreen',s=5)
 
+plt.xlabel('Gmag',fontsize=14)
+plt.ylabel('plx',fontsize=14)
 
 plt.figure(3)
 highdataGmag = highdata[:,5]
@@ -102,4 +92,50 @@ plt.xlabel('RA',fontsize=14)
 plt.ylabel('DEC',fontsize=14)
 
 
+lendata = len(r1)
+color=cm.rainbow(np.linspace(0,1,lendata))
+plt.figure(5)
+plt.scatter(lowdata[:,0], lowdata[:,1], marker='o', color='grey',s=1.0)
+for index in range(0, lendata):
+    #print('it is ok', index)
+    pldata = datapro[datapro[:,8] == index]
+    plt.scatter(pldata[:,0], pldata[:,1], marker='o', color= color[index],s=5.0)
+    
+plt.xlabel('RA',fontsize=14)
+plt.ylabel('DEC',fontsize=14)
+
+
+plt.figure(6)
+plt.scatter(lGmag, lparallax, marker='o', color='grey',s=5)
+for index in range(0, lendata):
+    mldata = datapro[datapro[:,8] == index]
+    plt.scatter(mldata[:,5], mldata[:,2], marker='o', color = color[index],s=5)
+plt.xlabel('Gmag',fontsize=14)
+plt.ylabel('plx',fontsize=14)
+
+
+plt.figure(7)
+plt.scatter(lowdata[:,3], lowdata[:,4], marker='o', color='grey',s=5.0)
+for index in range(0, lendata):
+    zldata = datapro[datapro[:,8] == index]
+    plt.scatter(zldata[:,3], zldata[:,4], marker='o', color = color[index],s=5)
+plt.xlabel('pmRA',fontsize=14)
+plt.ylabel('pmDEC',fontsize=14)
+plt.xlim((-25,25))
+plt.ylim((-25,25))
+
+plt.figure(8)
+plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
+for index in range(0, lendata):
+    czldata = datapro[datapro[:,8] == index]
+    plt.scatter(czldata[:,6]-czldata[:,7], czldata[:,5], marker='o', color = color[index],s=5)
+    
+plt.xlabel('BP-RP',fontsize=14)
+plt.ylabel('Gmag',fontsize=14)
+plt.xlim((-1,4))
+
+ax1 = plt.gca()
+ax1.xaxis.set_major_locator(x_major_locator)
+ax1.yaxis.set_ticks_position('left') #将y轴的位置设置在右边
+ax1.invert_yaxis() #y轴反向
 

@@ -43,7 +43,7 @@ noisy = data[1,:]
 
 nwalkers = 30
 niter = 250
-init_dist = [(7.,12.),(20,38),(0.5,1.2)]
+init_dist = [(7.,12.),(85,105),(0.5,1.5)]
 ndim = len(init_dist)
 sigma = np.diff(noisy,2).std()/np.sqrt(6)
 #sigma = 0.05
