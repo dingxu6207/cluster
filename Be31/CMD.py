@@ -14,7 +14,7 @@ import numpy as np
 #df = pd.read_csv('Be18.tsv', sep = ';', encoding='gbk')#NGC6819.tsv
 #df = pd.read_csv('NGC714210.tsv', sep = ';', encoding='gbk')#NGC6819.tsv
 #df = pd.read_csv('NGC559.tsv', sep = ';', encoding='gbk')
-df = pd.read_csv('Be3140.tsv', sep = ';', encoding='gbk')
+df = pd.read_csv('CG18_31.tsv', sep = ';', encoding='gbk')
 dataframe = df.dropna()
 
 #npgaia = dataframe.as_matrix()
@@ -39,4 +39,4 @@ arraydata = np.array(temp)
 
 
 
-np.savetxt('Be3140.txt', arraydata)
+np.savetxt('CG18_31.txt', arraydata)

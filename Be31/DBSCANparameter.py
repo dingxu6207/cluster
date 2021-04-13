@@ -21,7 +21,7 @@ np.random.seed(8)
 
 data = np.loadtxt('Be31.txt')
 print(len(data))
-#data = data[data[:,2]>0]
+data = data[data[:,2]>0]
 #data = data[data[:,2]<1]
 
 data = data[data[:,3]<15]
@@ -76,10 +76,8 @@ for eps in np.arange(0.1,0.5,0.01):
         datalables = clt.fit_predict(data_zs)
         
         try:
-            sscore = 0
-            lsscore = 0
-            #sscore = thehighdensity(data_zs, datalables)
-            #lsscore = thelowdensity(data_zs, datalables)
+            sscore = thehighdensity(data_zs, datalables)
+            lsscore = thelowdensity(data_zs, datalables)
         except:
             sscore = -1
             lsscore = -1

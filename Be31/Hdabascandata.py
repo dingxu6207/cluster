@@ -17,6 +17,8 @@ sns.set()
 
 data = np.loadtxt('Be31.txt')
 print(len(data))
+data = data[data[:,2]>0]
+
 
 X = np.copy(data[:,0:5])
 
