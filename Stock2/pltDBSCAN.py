@@ -135,9 +135,9 @@ plt.figure(5)
 ax1 = plt.axes(projection='3d')
 ax1.scatter3D(ram, decm, plxm, c = 'b', marker='o', s=5)
 #ax1.scatter3D(dlRA, dlDEC, dlprallex, c ='r', marker='o', s=0.01)
-ax1.set_xlabel('RA(PC)')
+ax1.set_xlabel('X(PC)')
 #ax1.set_xlim(-6, 4)  #拉开坐标轴范围显示投影
-ax1.set_ylabel('DEC(PC)')
+ax1.set_ylabel('Y(PC)')
 #ax1.set_ylim(-4, 6)
-ax1.set_zlabel('Parallax(PC)')
+ax1.set_zlabel('Z(PC)')
 #ax1.set_zlim(prallax-34, prallax+34

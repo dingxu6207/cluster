@@ -36,5 +36,10 @@ indexdata = np.arange(0,npcg18.shape[0])
 
 allradec = np.column_stack((indexdata, allradec))
 
+np.savetxt('allradec.txt', allradec)
+
+test = pd.DataFrame(data=allradec)
+test.to_csv('./pipei.csv',encoding='gbk')
+
 
 

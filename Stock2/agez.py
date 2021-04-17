@@ -9,9 +9,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
 
+'''
 BPRPG = np.loadtxt('BPRPG.txt')
 BPRPG = BPRPG.T
-BPRPG = BPRPG[BPRPG[:,0]<19]
+BPRPG = BPRPG[BPRPG[:,0]<21]
 
 
 G = BPRPG[:,0]
@@ -26,12 +27,15 @@ plt.ylim((1,22))
 ax = plt.gca()
 ax.yaxis.set_ticks_position('left') #将y轴的位置设置在右边
 ax.invert_yaxis() #y轴反向
+'''
 
-temdata = np.loadtxt('tmp.txt')
+temdata = np.loadtxt('temp.dat')
 temG = temdata[:,23]
+'''
 temBPRP = temdata[:,24]-temdata[:,26]
 
 plt.plot(temBPRP+0.53, temG+8.59,'.')
+#plt.plot(temBPRP-np.mean(temBPRP), temG-np.mean(temG),'.')
 
 
 yuanBPRPG = [(BPRP, G)]
@@ -50,3 +54,16 @@ for i in range(len(indices)):
     sumtem = sumtem + nmBPRPG[index][0]
 
 print(sumtem)
+'''
+highdata = np.loadtxt('highdata.txt')
+Gmag = highdata[:,5]
+Bpmag = highdata[:,6]
+Rpmag = highdata[:,7]
+
+temBP = temdata[:,24]
+temRP =temdata[:,26]
+plt.figure(1)
+#plt.plot(Bpmag-Rpmag, Gmag-Bpmag, '.')
+plt.plot(temBP-temRP, temG-temBP,'.')
+
+

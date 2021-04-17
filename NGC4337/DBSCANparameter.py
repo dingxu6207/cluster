@@ -19,15 +19,15 @@ from sklearn import metrics
 from sklearn.neighbors import NearestNeighbors
 np.random.seed(8)
 
-data = np.loadtxt('Be31.txt')
+data = np.loadtxt('NGC4337.txt')
 print(len(data))
 data = data[data[:,2]>0]
 
-data = data[data[:,3]<15]
-data = data[data[:,3]>-15]
+data = data[data[:,3]<-2]
+data = data[data[:,3]>-14]
 
-data = data[data[:,4]<15]
-data = data[data[:,4]>-15]
+data = data[data[:,4]<6]
+data = data[data[:,4]>-5]
 
 X = np.copy(data[:,0:5])
 X = StandardScaler().fit_transform(X)

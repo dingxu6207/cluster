@@ -18,24 +18,22 @@ from matplotlib.animation import FuncAnimation
 import imageio
 
 
-data = np.loadtxt('blan.txt')
+data = np.loadtxt('Be31.txt')
 print(len(data))
 data = data[data[:,2]>0]
-
-#data = data[data[:,3]<29]
-#data = data[data[:,3]>9]
-##
-#data = data[data[:,4]<13]
-#data = data[data[:,4]>-7]
+data = data[data[:,3]<15]
+data = data[data[:,3]>-15]
+#
+data = data[data[:,4]<15]
+data = data[data[:,4]>-15]
 
 X = np.copy(data[:,0:5])
-
 
 X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.13, min_samples = 14)
+clt = DBSCAN(eps = 0.25, min_samples = 14)
 datalables = clt.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
@@ -82,7 +80,7 @@ plt.ylabel('parallax',fontsize=14)
 plt.figure(21)
 plt.hist(lowdata[:,2], bins=500, density = 1, facecolor='blue', alpha=0.5)
 plt.hist(highdata[:,2], bins=50, density = 1, facecolor='red', alpha=0.5)
-distance = highdata[highdata[:,5]>19,2]
+distance = highdata[:,2]
 print(1000/np.mean(distance))
 
 plt.figure(3)
@@ -121,18 +119,5 @@ ax1 = plt.axes(projection='3d')
 plt.hist(lowdata[:,2], bins=100, density = 1, facecolor='blue')
 plt.hist(highdata[:,2], bins=100, density = 1, facecolor='red')
 
-
-plt.figure(25)
-
-ax1 = plt.axes(projection='3d')
-ax1.scatter3D(lowdata[:,0], lowdata[:,1], lowdata[:,2], c = 'b', marker='o', s=0.01)
-ax1.scatter3D(highdata[:,0], highdata[:,1], highdata[:,2], c ='r', marker='o', s=1)
-ax1.set_xlabel('RA')
-#ax1.set_xlim(-6, 4)  #拉开坐标轴范围显示投影
-ax1.set_ylabel('DEC')
-#ax1.set_ylim(-4, 6)
-ax1.set_zlabel('Parallax')
-#ax1.set_zlim(-2, 2)
-#ax1.set_title('NGC7142')
 
 
