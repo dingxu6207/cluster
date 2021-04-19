@@ -15,7 +15,7 @@ import numpy as np
 #df = pd.read_csv('NGC714210.tsv', sep = ';', encoding='gbk')#NGC6819.tsv
 #df = pd.read_csv('NGC559.tsv', sep = ';', encoding='gbk')
 PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\CLUSTERCODE\\clusterdata\\'
-FILE = 'CSCC9_40'
+FILE = 'ASCC_108'
 df = pd.read_csv(PATH+FILE+'.tsv', sep = ';', encoding='gbk')
 dataframe = df.dropna()
 

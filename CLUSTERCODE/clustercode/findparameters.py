@@ -17,23 +17,36 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 from sklearn import metrics
 from sklearn.neighbors import NearestNeighbors
+import os
 
+#PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\CLUSTERCODE\\clusterdata\\'
+#FILE = ['ASCC_12','ASCC_108','ASCC_110']
+#
 PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\CLUSTERCODE\\clusterdata\\'
-FILE = ['CSCC9_40','Be23','Be31','M67']
+#
+#filetemp = []
+FILE = []
+for root, dirs, files in os.walk(PATH):
+   for file in files:
+       strfile = os.path.join(root, file)
+       if (strfile[-4:] == '.txt'):
+           print(strfile)
+           #filetemp.append(strfile)
+           FILE.append(file)
 
 lenfile = len(FILE)
 
 for i in range (lenfile):
-    data = np.loadtxt(PATH+FILE[i]+'.txt')
+    data = np.loadtxt(PATH+FILE[i])
     print(FILE[i])
     
     data = data[data[:,2]>0]
     
-    data = data[data[:,3]<15]
-    data = data[data[:,3]>-15]
-
-    data = data[data[:,4]<15]
-    data = data[data[:,4]>-15]
+#    data = data[data[:,3]<10]
+#    data = data[data[:,3]>-10]
+#
+#    data = data[data[:,4]<10]
+#    data = data[data[:,4]>-10]
 
     X = np.copy(data[:,0:5])
     
@@ -58,5 +71,5 @@ for i in range (lenfile):
             
     df = pd.DataFrame(res)
     df2cluster = df.loc[df.n_clusters == 2, :]
-    df2cluster.to_csv(FILE[i]+'.csv')
+    df2cluster.to_csv(PATH+FILE[i][:-4]+'.csv')
     

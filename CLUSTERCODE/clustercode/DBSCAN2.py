@@ -18,11 +18,11 @@ from matplotlib.animation import FuncAnimation
 import imageio
 
 PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\CLUSTERCODE\\clusterdata\\'
-FILE = ['CSCC9_40']
+FILE = ['CSCC9_40','Be23','Be31','M67']
 
-data = np.loadtxt(PATH+FILE[0]+'.txt')
+data = np.loadtxt(PATH+FILE[3]+'.txt')
 print(len(data))
-#data = data[data[:,2]>0]
+data = data[data[:,2]>0]
 #data = data[data[:,2]<1]
 
 data = data[data[:,3]<15]
@@ -39,7 +39,7 @@ X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.15, min_samples = 14)
+clt = DBSCAN(eps = 0.31, min_samples = 15)
 datalables = clt.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()

@@ -91,7 +91,7 @@ highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
 loaddata = np.vstack((highdataGmag,highdataBPRP))
 np.savetxt('BPRPG.txt', loaddata)
-plt.xlim((-1,4))
+plt.xlim((-1,3))
 plt.ylim((10,22))
 #plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
