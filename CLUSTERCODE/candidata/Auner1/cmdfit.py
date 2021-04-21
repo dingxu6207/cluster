@@ -24,9 +24,9 @@ def mobandata(Age,E,mM):
     agedata = np.loadtxt('agefeh09.dat')
     ageGBPRP = agedata[:,[2,28,29,30]]
     selectdata = ageGBPRP[np.round(ageGBPRP[:,0],2)== np.round(Age,2)]
-    selectG = selectdata[:,1]
-    selectBPRP = selectdata[:,2]-selectdata[:,3]
-    print(str(len(selectBPRP))+'it is ok!')
+    selectG = selectdata[:,1]+mM
+    selectBPRP = selectdata[:,2]-selectdata[:,3]+E
+    #print(str(len(selectBPRP))+'it is ok!')
     #print(selectG,selectBPRP)
     return selectG,selectBPRP
 
@@ -55,6 +55,7 @@ def distancecompute(selectG, selectBPRP,ydata):
     d2 = (pipeidata[:,1]-pipeidata[:,3])**2
     d = np.sqrt((d1+d2))/0.2
     distance = np.sum(d)
+    print(str(distance)+' it is ok!')
     return distance
 
 
