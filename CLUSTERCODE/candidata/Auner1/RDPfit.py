@@ -42,8 +42,8 @@ noisy = data[1,:]
 
 
 nwalkers = 30
-niter = 250
-init_dist = [(7.,12.),(20,38),(0.5,1.2)]
+niter = 100
+init_dist = [(7.,13.),(70,100),(0.5,1.2)]
 ndim = len(init_dist)
 sigma = np.diff(noisy,2).std()/np.sqrt(6)
 #sigma = 0.05
@@ -102,7 +102,7 @@ def run(init_dist, nwalkers, niter, ndim):
     for i in range(ndim):
         pl.figure(i+1)
         y = sampler.flatchain[:,i]
-        n, bins, patches = pl.hist(y, 200, normed=1, color="b", alpha=0.45)
+        n, bins, patches = pl.hist(y, 200, density=1, color="b", alpha=0.45)
         pl.title("Dimension {0:d}".format(i))
         
         mu = np.average(y)
@@ -137,7 +137,7 @@ pl.show()
 
 
 '''
-niter = 10000
+#niter = 10000
 
 pos,tempsigma = run(init_dist, nwalkers, niter, ndim)
 

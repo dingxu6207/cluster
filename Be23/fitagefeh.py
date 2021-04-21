@@ -18,7 +18,7 @@ from matplotlib.animation import FuncAnimation
 import imageio
 from scipy.spatial import cKDTree
 
-data = np.loadtxt('Auner_1.txt')
+data = np.loadtxt('Be23.txt')
 print(len(data))
 data = data[data[:,2]>0]
 
@@ -28,7 +28,7 @@ X = np.copy(data[:,0:5])
 X = StandardScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.17, min_samples = 14)
+clt = DBSCAN(eps = 0.21, min_samples = 13)
 datalables = clt.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
@@ -75,7 +75,7 @@ plt.ylabel('Gmag',fontsize=14)
 
 E = 0.7 #0.73
 DEL = 0
-mM = 15.5 #15.5
+mM = 10 #15.5
 #mM = 5*np.log10(1000/np.mean(highdata[:,2]))+5-2.046*E-DEL
 plt.figure(2)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)

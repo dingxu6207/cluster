@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
 import seaborn as sns
 
-#sns.set()
+sns.set()
 
 def q(fbg,f0, rc, x):
     return fbg+f0/(1+(x/rc)**2)
@@ -53,7 +53,7 @@ def distancecompute(selectG, selectBPRP,ydata):
     pipeidata = np.column_stack((npyBPRPG, nptemp))
     d1 = (pipeidata[:,0]-pipeidata[:,2])**2
     d2 = (pipeidata[:,1]-pipeidata[:,3])**2
-    d = np.sqrt((d1+d2))/0.2
+    d = np.sqrt((d1+d2))/0.1
     distance = np.sum(d)
     return distance
 
@@ -63,8 +63,8 @@ ydata = np.loadtxt('BPRPG.txt')
 sigma = 0.05
 
 nwalkers = 30
-niter = 150
-init_dist = [(7.,10.),(0.6,0.8),(13,17)]
+niter = 2
+init_dist = [(7.,10.),(0.5,1),(10,20)]
 ndim = len(init_dist)
 priors = init_dist
 
@@ -116,8 +116,8 @@ def run(init_dist, nwalkers, niter, ndim):
     for i in range(ndim):
         pl.figure(i+1)
         y = sampler.flatchain[:,i]
-        #sns.kdeplot(y,shade=True)
-        n, bins, patches = pl.hist(y, 200, density=0, color="b", alpha=0.45)
+        sns.kdeplot(y,shade=True)
+        #n, bins, patches = pl.hist(y, 200, density=1, color="b", alpha=0.45)
         pl.title("Dimension {0:d}".format(i))
         
         mu = np.average(y)
@@ -126,8 +126,8 @@ def run(init_dist, nwalkers, niter, ndim):
         tempsigma.append(sigma)
         print ("mu,", "sigma = ", mu, sigma)
 
-        bf = norm.pdf(bins, mu, sigma)
-        l = pl.plot(bins, bf, 'k--', linewidth=2.0)
+        #bf = norm.pdf(bins, mu, sigma)
+        #l = pl.plot(bins, bf, 'k--', linewidth=2.0)
         
     pl.show()
     return pos,tempsigma

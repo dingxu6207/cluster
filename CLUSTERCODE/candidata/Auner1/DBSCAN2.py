@@ -97,6 +97,6 @@ plt.ylabel('DEC',fontsize=14)
 #ax1.view_init(elev=30, azim=30)
 
 plt.figure(5)
-plt.hist(lowdata[:,0], bins=500, density = 1, facecolor='blue', alpha=0.5)
-plt.hist(highdata[:,0], bins=20, density = 1, facecolor='red', alpha=0.5)
+plt.hist(lowdata[:,0], bins=500, density = 1, facecolor='blue', alpha=0.45)
+plt.hist(highdata[:,0], bins=50, density = 1, facecolor='red', alpha=0.45)
 
