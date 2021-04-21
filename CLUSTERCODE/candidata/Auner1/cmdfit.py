@@ -13,9 +13,6 @@ import matplotlib.mlab as mlab
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 from scipy.spatial import cKDTree
-import seaborn as sns
-
-#sns.set()
 
 def q(fbg,f0, rc, x):
     return fbg+f0/(1+(x/rc)**2)
@@ -31,7 +28,7 @@ def mobandata(Age,E,mM):
     return selectG,selectBPRP
 
 def distancecompute(selectG, selectBPRP,ydata):
-    yuanBPRPG = [(ydata[1,:], ydata[0,:])]
+    yuanBPRPG = [(ydata[:,1], ydata[:,0])]
     npyBPRPG = np.array(yuanBPRPG)[0].T
 
     mBPRPG = [(selectBPRP,selectG)]
@@ -54,18 +51,20 @@ def distancecompute(selectG, selectBPRP,ydata):
     d1 = (pipeidata[:,0]-pipeidata[:,2])**2
     d2 = (pipeidata[:,1]-pipeidata[:,3])**2
     d = np.sqrt((d1+d2))/0.2
-    distance = np.sum(d)
-    print(str(distance)+' it is ok!')
+    distance = np.sum(d**2)
+    print(str(distance)+'it is ok!')
     return distance
 
-
+lanli = 1
 ydata = np.loadtxt('BPRPG.txt')
+ydata = ydata.T
+ydata = ydata[ydata[:,1]>lanli]
 
 sigma = 0.05
 
 nwalkers = 30
 niter = 150
-init_dist = [(7.,10.),(0.6,0.8),(13,17)]
+init_dist = [(7.,10.),(0.5,1),(10,20)]
 ndim = len(init_dist)
 priors = init_dist
 
@@ -117,8 +116,7 @@ def run(init_dist, nwalkers, niter, ndim):
     for i in range(ndim):
         pl.figure(i+1)
         y = sampler.flatchain[:,i]
-        #sns.kdeplot(y,shade=True)
-        n, bins, patches = pl.hist(y, 200, density=0, color="b", alpha=0.45)
+        n, bins, patches = pl.hist(y, 200, density=1, color="b", alpha=0.45)
         pl.title("Dimension {0:d}".format(i))
         
         mu = np.average(y)
