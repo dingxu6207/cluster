@@ -14,7 +14,7 @@ ageGBPRP = agedata[:,[1,28,29,30]]
 
 
 plt.figure(0)
-selectdata = ageGBPRP[np.round(ageGBPRP[:,0],1)==-0.9]
+selectdata = ageGBPRP[np.round(ageGBPRP[:,0],1)==-0.7]
 selectG = selectdata[:,1]
 selectBPRP = selectdata[:,2]-selectdata[:,3]
 plt.scatter(selectBPRP, selectG, marker='o', color='lightcoral',s=5)

@@ -44,7 +44,7 @@ print('c3.ra.degree=', c3.ra.degree)
 radectemp = []
 for i in range(len(listdata)):
     RA = listdata[i][0:2]+'h'+ listdata[i][3:5] +'m'+listdata[i][6:11]+'s'
-    DEC = listdata[i][13:15]+'d'+ listdata[i][16:18] +'m'+listdata[i][19:23]+'s'
+    DEC = listdata[i][12:15]+'d'+ listdata[i][16:18] +'m'+listdata[i][19:23]+'s'
     c3 = SkyCoord(RA, DEC, frame='icrs')
     #print('c3.dec.degree=', c3.dec.degree)
     #print('c3.ra.degree=', c3.ra.degree)
