@@ -74,8 +74,8 @@ highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
 loaddata = np.vstack((highdataGmag,highdataBPRP))
 np.savetxt('BPRPG.txt', loaddata)
-plt.xlim((-1,3))
-plt.ylim((10,22))
+plt.xlim((0,3))
+#plt.ylim((10,22))
 plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
 x_major_locator = MultipleLocator(1)
@@ -93,7 +93,7 @@ plt.scatter(lowdata[:,0], lowdata[:,1], marker='o', color='grey',s=5.0)
 plt.scatter(highdata[:,0], highdata[:,1], marker='o', color='lightcoral',s=5.0)
 plt.xlabel('RA',fontsize=14)
 plt.ylabel('DEC',fontsize=14)
-
+print(np.mean(highdata[:,0]), np.mean(highdata[:,1]))
 #ax1.view_init(elev=30, azim=30)
 
 plt.figure(5)

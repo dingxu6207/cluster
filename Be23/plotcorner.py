@@ -97,7 +97,7 @@ def run(init_dist, nwalkers, niter, ndim):
     for i in range(ndim):
         pl.figure(i+1)
         y = sampler.flatchain[:,i]
-        n, bins, patches = pl.hist(y, 200, normed=1, color="b", alpha=0.45)
+        n, bins, patches = pl.hist(y, 200, density=1, color="b", alpha=0.45)
         pl.title("Dimension {0:d}".format(i))
         
         mu = np.average(y)
@@ -133,15 +133,16 @@ pl.show()
 
 
 '''
-niter = 1000
+niter = 500
 
 pos,tempsigma = run(init_dist, nwalkers, niter, ndim)
 
 nptemp = np.array(datatemp).T
 plt.figure(5)
-figure = corner.corner(nptemp,quantiles=[0.16, 0.5, 0.84],labels=[r"$fbg$", r"$f0$", r"$Rc$"],
-                       show_titles=True, title_kwargs={"fontsize": 12})
+figure = corner.corner(nptemp,bins=50,quantiles=[0.16, 0.5, 0.84],labels=[r"$f_b$", r"$f_0$", r"$R_c$"],
+                       show_titles=True, title_kwargs={"fontsize": 12}, color ='blue')
 
+figure.savefig("corner.png")
 '''
 color=cm.rainbow(np.linspace(0,1,nwalkers))
 for i,c in zip(range(nwalkers),color):

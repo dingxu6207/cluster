@@ -81,10 +81,12 @@ plt.figure(2)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
 plt.scatter(selectBPRP+E, selectG+mM, marker='o',color='green',s=1)
 plt.ylim((10,21))
+plt.xlim((0,3))
 ax = plt.gca()
 ax.yaxis.set_ticks_position('left') #将y轴的位置设置在右边
 ax.invert_yaxis() #y轴反向
-
+plt.xlabel('BPRP',fontsize=14)
+plt.ylabel('G',fontsize=14)
 
 ######################################
 yuanBPRPG = [(highdataBPRP, highdataGmag)]
@@ -108,3 +110,10 @@ d1 = (pipeidata[:,0]-pipeidata[:,2])**2
 d2 = (pipeidata[:,1]-pipeidata[:,3])**2
 d = np.sqrt(d1+d2)
 print(np.sum(d))
+
+EBV = 0.396
+AV = 3.1*(EBV)
+AG = 0.9761-0.1704*E+0.0086*(E**2)+0.0011*(E**3)-0.0438*AV+0.0013*(AV**2)+0.0099*E*AV
+#(m-M) = 5logr-5+A
+distanr = 10**((mM+5-AG)/5)
+print(distanr)

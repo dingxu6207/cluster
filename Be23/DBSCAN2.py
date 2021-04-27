@@ -20,14 +20,14 @@ import imageio
 
 data = np.loadtxt('Be23.txt')
 print(len(data))
-#data = data[data[:,2]>0]
+data = data[data[:,2]>0]
 #data = data[data[:,2]<1]
 
-data = data[data[:,3]<15]
-data = data[data[:,3]>-15]
-
-data = data[data[:,4]<15]
-data = data[data[:,4]>-15]
+#data = data[data[:,3]<15]
+#data = data[data[:,3]>-15]
+#
+#data = data[data[:,4]<15]
+#data = data[data[:,4]>-15]
 
 
 X = np.copy(data[:,0:5])
@@ -37,7 +37,7 @@ X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.26, min_samples = 13)
+clt = DBSCAN(eps = 0.21, min_samples = 14)
 datalables = clt.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
