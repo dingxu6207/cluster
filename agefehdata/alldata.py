@@ -29,7 +29,7 @@ for root, dirs, files in os.walk(PATH):
 print(len(datatemp))           
 #npallparmdata = np.array(datatemp)
 #np.savetxt('kuagefeh.txt', npallparmdata)
-ar7 = np.zeros((1,36))           
+ar7 = np.zeros((1,31))           
 for i in range(len(datatemp)):
     ar7=np.vstack((ar7,datatemp[i]))
     

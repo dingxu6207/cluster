@@ -35,7 +35,7 @@ def findepsmindata(filemeter):
         member2 = int(df['stats'][i+1][-6:-1])
         cha = member2-member1
     
-        if cha >500:
+        if cha >300:
             print(i)
             eps = stasdata.iloc[i,0]
             mindata = stasdata.iloc[i,1]
