@@ -59,8 +59,8 @@ ax.invert_yaxis() #y轴反向
 agedata = np.loadtxt('kuagefeh.txt')
 fehageGBPRP = agedata[:,[1,2,28,29,30]]
 
-Age = 9.69 #9.69
-feh = -0.9
+Age = 9.7 #9.69
+feh = -0.6
 plt.figure(1)
 #selectdata = ageGBPRP[np.round(ageGBPRP[:,0],2)== Age]
 selectdata = fehageGBPRP[np.round(fehageGBPRP[:,1],2)== np.round(Age,2)]
@@ -77,9 +77,9 @@ ax.invert_yaxis() #y轴反向
 plt.xlabel('BP-RP',fontsize=14)
 plt.ylabel('Gmag',fontsize=14)
 
-E = 0.69 #0.73
+E = 0.62 #0.73
 DEL = 0
-mM = 15.43 #15.5
+mM = 15.27 #15.5
 #mM = 5*np.log10(1000/np.mean(highdata[:,2]))+5-2.046*E-DEL
 plt.figure(2)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
