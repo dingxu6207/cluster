@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\targets\\'
-file = 'BH_67BPRPG.dat'
+file = 'NGC_609BPRPG.dat'
 data = np.loadtxt(PATH+file)
 
 BPRP = data[1,:]
@@ -20,10 +20,10 @@ G = data[0,:]
 agedata = np.loadtxt('kuagefeh.txt')
 fehageGBPRP = agedata[:,[1,2,28,29,30]]
 
-Age = 9.45 #9.69
-feh = -0.2
-E = 0.6 #0.73
-mM = 15.3 #15.5
+Age = 8.44 #9.69
+feh = -0.9
+E = 1.7 #0.73
+mM = 16.2#15.5
 plt.figure(1)
 #selectdata = ageGBPRP[np.round(ageGBPRP[:,0],2)== Age]
 selectdata = fehageGBPRP[np.round(fehageGBPRP[:,1],2)== np.round(Age,2)]

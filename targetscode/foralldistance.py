@@ -37,22 +37,22 @@ def distancecompute(selectGO, selectBPRPO,ydatao):
     d1 = (pipeidata[:,0]-pipeidata[:,2])**2
     d2 = (pipeidata[:,1]-pipeidata[:,3])**2
     d = np.sqrt((d1+d2))
-    distance = np.sum(d)
+    distance = np.sum(d)/len(d)
     return distance
 
 temp = []
 agedata = np.loadtxt('kuagefeh.txt')
 
-lanli = 1.5  #拐点位置避免蓝离散星的影响
+lanli = 0.0  #拐点位置避免蓝离散星的影响
 #ydata = np.loadtxt('BPRPG.txt')
-FILE = 'BH_67BPRPG.dat'
+FILE = 'NGC_2158BPRPG.dat'
 PATHDAT = '/home/dingxu/桌面/MCMCCMD/datatest/'+FILE
 ydata = np.loadtxt(PATHDAT)
 ydata = ydata.T
 ydata = ydata[ydata[:,1]>lanli]
 
 for age in np.arange(6.6,10.145,0.01):
-    for feh in np.arange(-0.9,0.7,0.1):
+    for feh in np.arange(-0.9,0.8,0.1):
         
         print(str(np.round(age,2))+' age it is ok'+'  '+str(np.round(feh,1))+' feh it is ok')
         
@@ -71,13 +71,15 @@ for age in np.arange(6.6,10.145,0.01):
                 distance = distancecompute(selectGO, selectBPRPO,ydata)
                 temparameter = (age, feh, E, Mod, distance)
                 
-                if distance < 25:
+                if distance < 0.2:
                     temp.append(temparameter)
                     #print(temparameter)    
     
             
 arraytemp = np.array(temp)
-np.savetxt(FILE[:-4]+'.txt', arraytemp)
+#np.savetxt(FILE[:-4]+'.txt', arraytemp)
 
 data = arraytemp[arraytemp[:,4].argsort()]
-print(data[0:10,:])
+print(np.round(data[0:10,:],4))
+savepath = '/home/dingxu/桌面/MCMCCMD/eagedata/'
+np.savetxt(savepath+FILE[:-4]+'.txt', data[0:10,:])
