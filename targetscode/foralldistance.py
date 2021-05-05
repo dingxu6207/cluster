@@ -40,12 +40,12 @@ def distancecompute(selectGO, selectBPRPO,ydatao):
     distance = np.sum(d)/len(d)
     return distance
 
-temp = []
+tempidx = []
 agedata = np.loadtxt('kuagefeh.txt')
 
 lanli = 0.0  #拐点位置避免蓝离散星的影响
 #ydata = np.loadtxt('BPRPG.txt')
-FILE = 'NGC_2158BPRPG.dat'
+FILE = 'NGC 136BPRPG.dat'
 PATHDAT = '/home/dingxu/桌面/MCMCCMD/datatest/'+FILE
 ydata = np.loadtxt(PATHDAT)
 ydata = ydata.T
@@ -72,11 +72,11 @@ for age in np.arange(6.6,10.145,0.01):
                 temparameter = (age, feh, E, Mod, distance)
                 
                 if distance < 0.2:
-                    temp.append(temparameter)
+                    tempidx.append(temparameter)
                     #print(temparameter)    
     
             
-arraytemp = np.array(temp)
+arraytemp = np.array(tempidx)
 #np.savetxt(FILE[:-4]+'.txt', arraytemp)
 
 data = arraytemp[arraytemp[:,4].argsort()]

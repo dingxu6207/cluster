@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 PATH = 'E:\\shunbianyuan\\phometry\\pipelinecode\\cluster\\cluster\\targets\\'
-file = 'NGC_609BPRPG.dat'
+file = 'Berkeley 18BPRPG.dat'#'NGC 1798BPRPG.dat'
 data = np.loadtxt(PATH+file)
 
 BPRP = data[1,:]
@@ -20,10 +20,10 @@ G = data[0,:]
 agedata = np.loadtxt('kuagefeh.txt')
 fehageGBPRP = agedata[:,[1,2,28,29,30]]
 
-Age = 8.44 #9.69
-feh = -0.9
-E = 1.7 #0.73
-mM = 16.2#15.5
+Age = 9.71#9.69
+feh = -0.2
+E = 0.7 #0.73
+mM = 14.7#15.5
 plt.figure(1)
 #selectdata = ageGBPRP[np.round(ageGBPRP[:,0],2)== Age]
 selectdata = fehageGBPRP[np.round(fehageGBPRP[:,1],2)== np.round(Age,2)]
@@ -36,11 +36,11 @@ selectBPRP = selectdata[:,3]-selectdata[:,4]
 
 plt.figure(0)
 
-plt.xlim((-1,3))
+plt.xlim((0,3))
 plt.ylim((10,22))
 
-plt.scatter(BPRP, G, marker='o', color='green',s=5)
-plt.scatter(selectBPRP+E, selectG+mM, marker='o', color='lightcoral',s=5)
+plt.scatter(BPRP, G, marker='o', color='lightcoral',s=5)
+plt.scatter(selectBPRP+E, selectG+mM, marker='o', color='green',s=5)
 
 plt.xlabel('BP-RP',fontsize=14)
 plt.ylabel('Gmag',fontsize=14)
