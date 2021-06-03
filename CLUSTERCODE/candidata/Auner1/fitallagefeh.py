@@ -119,5 +119,5 @@ EBV = 0.396
 AV = 3.1*(EBV)
 AG = 0.9761-0.1704*E+0.0086*(E**2)+0.0011*(E**3)-0.0438*AV+0.0013*(AV**2)+0.0099*E*AV
 #(m-M) = 5logr-5+A
-distanr = 10**((mM+5-AG)/5)
+distanr = 10**((mM+5-AG*AV)/5)
 print(distanr)

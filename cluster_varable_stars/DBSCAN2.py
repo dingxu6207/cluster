@@ -18,24 +18,26 @@ from matplotlib.animation import FuncAnimation
 import imageio
 
 
-data = np.loadtxt('ASCC115.txt')
+data = np.loadtxt('Be23.txt')
 print(len(data))
-data = data[data[:,2]>1]
-data = data[data[:,2]<2]
+data = data[data[:,2]>0]
+#data = data[data[:,2]<1]
 
-data = data[data[:,3]<2]
-data = data[data[:,3]>-2.5]
+#data = data[data[:,3]<15]
+#data = data[data[:,3]>-15]
+#
+#data = data[data[:,4]<15]
+#data = data[data[:,4]>-15]
 
-data = data[data[:,4]<2]
-data = data[data[:,4]>-2.5]
 
 X = np.copy(data[:,0:5])
+
 
 X = StandardScaler().fit_transform(X)
 #X = MinMaxScaler().fit_transform(X)
 data_zs = np.copy(X)
 
-clt = DBSCAN(eps = 0.34, min_samples = 14)
+clt = DBSCAN(eps = 0.21, min_samples = 14)
 datalables = clt.fit_predict(data_zs)
 
 r1 = pd.Series(datalables).value_counts()
@@ -60,9 +62,9 @@ plt.ylabel('pmDEC',fontsize=14)
 plt.xlim((-15,15))
 plt.ylim((-15,15))
 
-plt.figure(11)
-plt.hist(lowdata[:,4], bins=500, density = 0, facecolor='blue', alpha=0.5)
-plt.hist(highdata[:,4], bins=500, density = 0, facecolor='red', alpha=0.5)
+plt.figure(10)
+plt.hist(lowdata[:,4], bins=500, density = 1, facecolor='blue', alpha=0.5)
+plt.hist(highdata[:,4], bins=50, density = 1, facecolor='red', alpha=0.5)
 
 
 
@@ -82,16 +84,15 @@ plt.ylabel('parallax',fontsize=14)
 plt.figure(21)
 plt.hist(lowdata[:,2], bins=500, density = 1, facecolor='blue', alpha=0.5)
 plt.hist(highdata[:,2], bins=50, density = 1, facecolor='red', alpha=0.5)
-distance = highdata[:,2]
-print(1000/np.mean(distance))
+
 
 plt.figure(3)
 highdataGmag = highdata[:,5]
 highdataBPRP = highdata[:,6]-highdata[:,7]
 loaddata = np.vstack((highdataGmag,highdataBPRP))
 np.savetxt('BPRPG.txt', loaddata)
-plt.xlim((-1,4))
-#plt.ylim((10,22))
+plt.xlim((-1,3))
+plt.ylim((10,22))
 #plt.scatter((lowdata[:,6]-lowdata[:,7]), lowdata[:,5], marker='o', color='grey',s=5)
 plt.scatter(highdataBPRP, highdataGmag, marker='o', color='lightcoral',s=5)
 x_major_locator = MultipleLocator(1)
@@ -105,21 +106,65 @@ ax.invert_yaxis() #y轴反向
 
 
 plt.figure(5)
-plt.scatter(lowdata[:,0], lowdata[:,1], marker='o', color='grey',s=5.0)
-plt.scatter(highdata[:,0], highdata[:,1], marker='o', color='lightcoral',s=5.0)
-plt.xlabel('RA',fontsize=14)
-plt.ylabel('DEC',fontsize=14)
 
+ax1 = plt.axes(projection='3d')
+ax1.scatter3D(lowdata[:,0], lowdata[:,1], lowdata[:,2], c = 'b', marker='o', s=0.01)
+ax1.scatter3D(highdata[:,0], highdata[:,1], highdata[:,2], c ='r', marker='o', s=1)
+ax1.set_xlabel('RA')
+#ax1.set_xlim(-6, 4)  #拉开坐标轴范围显示投影
+ax1.set_ylabel('DEC')
+#ax1.set_ylim(-4, 6)
+ax1.set_zlabel('Parallax')
+#ax1.set_zlim(-2, 2)
+ax1.set_title('NGC7142')
+
+#ax1.view_init(elev=30, azim=30)
 
 plt.figure(11)
-plt.hist(lowdata[:,2], bins=100, density = 1, facecolor='blue')
-plt.hist(highdata[:,2], bins=100, density = 1, facecolor='red')
+plt.hist(lowdata[:,0], bins=500, density = 1, facecolor='blue', alpha=0.5)
+plt.hist(highdata[:,0], bins=20, density = 1, facecolor='red', alpha=0.5)
 
-
-plt.figure(12)
+'''
+plt.figure(6)
 ax1 = plt.axes(projection='3d')
-plt.hist(lowdata[:,2], bins=100, density = 1, facecolor='blue')
-plt.hist(highdata[:,2], bins=100, density = 1, facecolor='red')
 
+gif_images = []
+for t in range (0,1000):
+    if t == 360:
+        break
+    plt.cla()
+    
+    #ax1.set_zlim(-5, 5)
+    ax1.scatter3D(lowdata[:,0], lowdata[:,1], lowdata[:,2], c = 'b', marker='o', s=0.01)
+    ax1.scatter3D(highdata[:,0], highdata[:,1], highdata[:,2], c ='r', marker='o', s=1)
+    
+    ax1.set_xlabel('RA')
+    ax1.set_ylabel('DEC')
+    ax1.set_zlabel('Parallax')
 
+    plt.pause(0.01)
+    plt.savefig('1.jpg')
+    
+    ax1.view_init(elev=30, azim=t+1)
+    gif_images.append(imageio.imread('1.jpg'))
+    
+imageio.mimsave("NGC7142.gif",gif_images,fps=20)
+'''
+    
+'''
+plt.figure(4)
+dataable = np.column_stack((data_zs ,datalables))
+pddata = pd.DataFrame(dataable)
+datazs = pd.DataFrame(data_zs)
 
+tsne = TSNE(n_components=2, learning_rate=100, n_iter=1000, init='pca')
+tsne.fit_transform(data_zs)    #进行降维
+tsne = pd.DataFrame(tsne.embedding_, index=datazs.index)    #转换数据格式
+
+d = tsne[pddata.iloc[:,5] == -1]
+plt.scatter(d[0], d[1], c = 'b', s = 0.1)
+
+#d = tsne[pddata.iloc[:,5] == 0]
+#plt.scatter(d[0], d[1], c = 'r', s = 5)
+
+'''

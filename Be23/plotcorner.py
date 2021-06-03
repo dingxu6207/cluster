@@ -139,8 +139,9 @@ pos,tempsigma = run(init_dist, nwalkers, niter, ndim)
 
 nptemp = np.array(datatemp).T
 plt.figure(5)
-figure = corner.corner(nptemp,bins=50,quantiles=[0.16, 0.5, 0.84],labels=[r"$f_b$", r"$f_0$", r"$R_c$"],
-                       show_titles=True, title_kwargs={"fontsize": 12}, color ='blue')
+figure = corner.corner(nptemp,bins=50,quantiles=[0.16, 0.5, 0.84],labels=[r"$f_b$", r"$f_0$", r"$R_c$"], label_kwargs
+                       = {"fontsize": 15},
+                       show_titles=True, title_kwargs={"fontsize": 15}, color ='blue')
 
 figure.savefig("corner.png")
 '''
@@ -156,8 +157,9 @@ plt.figure(4)
 model = tempsigma[0]+tempsigma[2]/(1+(x/tempsigma[4])**2)   
 pl.plot(x,model)
 pl.plot(x,noisy,"k.")
-pl.xlabel("R(arcmin)")
-pl.ylabel("Density(stars arcmin-2)")
+pl.xlabel("R(arcmin)", fontsize =15)
+pl.ylabel("Density(stars arcmin-2)", fontsize =15)
+plt.savefig('Berkeley 23.png')
 
 f0 = tempsigma[2]
 sigb = tempsigma[1]

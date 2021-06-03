@@ -15,10 +15,18 @@ import seaborn as sns
 
 sns.set()
 
-data = np.loadtxt('Be31.txt')
-print(len(data))
-data = data[data[:,2]>0]
+data = np.loadtxt('ASCC115.txt')
 
+data = data[data[:,2]>1]
+data = data[data[:,2]<2]
+
+data = data[data[:,3]<2]
+data = data[data[:,3]>-3]
+
+data = data[data[:,4]<2]
+data = data[data[:,4]>-3]
+
+print(len(data))
 
 X = np.copy(data[:,0:5])
 
@@ -37,9 +45,9 @@ print(r1)
 
 datapro = np.column_stack((data ,cluster_labels))
 
-highdata = datapro[datapro[:,8] == 14]
+highdata = datapro[datapro[:,8] == 1]
 lowdata = datapro[datapro[:,8] == -1]
-meandata = datapro[datapro[:,8] == 7]
+meandata = datapro[datapro[:,8] == 0]
 
 plt.figure(10)
 sns.kdeplot(highdata[:,3],shade=True)

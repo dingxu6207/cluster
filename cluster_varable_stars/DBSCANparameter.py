@@ -14,25 +14,27 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.manifold import TSNE
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
-
+import imageio
 from sklearn import metrics
 from sklearn.neighbors import NearestNeighbors
 np.random.seed(8)
 
-data = np.loadtxt('ASCC115.txt')
+data = np.loadtxt('NGC 7789.txt')
+print(len(data))
+data = data[data[:,2]>0]
+#data = data[data[:,2]<0.5]
 
-data = data[data[:,2]>1]
-data = data[data[:,2]<2]
-
-data = data[data[:,3]<2]
-data = data[data[:,3]>-2.5]
-
-data = data[data[:,4]<2]
-data = data[data[:,4]>-2.5]
+data = data[data[:,3]<15]
+data = data[data[:,3]>-15]
+#
+data = data[data[:,4]<15]
+data = data[data[:,4]>-15]
 
 print(len(data))
 
 X = np.copy(data[:,0:5])
+
+
 X = StandardScaler().fit_transform(X)
 data_zs = np.copy(X)
 
@@ -76,6 +78,17 @@ for eps in np.arange(0.1,0.5,0.01):
         datalables = clt.fit_predict(data_zs)
         
         try:
+            '''
+            datapro = np.column_stack((data_zs ,datalables))
+            highdata = datapro[datapro[:,5] == 0]
+            nearest_neighbors = NearestNeighbors(n_neighbors=3)
+            neighbors = nearest_neighbors.fit(highdata[0:5])
+            distances, indices = neighbors.kneighbors(highdata[0:5])
+            hang,lie = distances.shape
+            sscore = np.sum(distances[:,1])/hang
+            
+            print(sscore)
+            '''
             sscore = thehighdensity(data_zs, datalables)
             lsscore = thelowdensity(data_zs, datalables)
         except:
@@ -100,6 +113,8 @@ df2cluster = df.loc[df.n_clusters == 2, :]
 epsdata = df2cluster['eps']
 mindata = df2cluster['min_samples']
 
+DFDATA = df.sort_values(by = ['n_clusters'])
+    
 '''
 plt.figure(0)
 plt.plot(epsdata, mindata, '*')
