@@ -21,14 +21,14 @@ np.random.seed(8)
 
 data = np.loadtxt('NGC 7789.txt')
 print(len(data))
-data = data[data[:,2]>0]
-#data = data[data[:,2]<0.5]
+data = data[data[:,2]>0.25]
+data = data[data[:,2]<0.5]
 
-data = data[data[:,3]<15]
-data = data[data[:,3]>-15]
+data = data[data[:,3]<2]
+data = data[data[:,3]>-2]
 #
-data = data[data[:,4]<15]
-data = data[data[:,4]>-15]
+data = data[data[:,4]<2]
+data = data[data[:,4]>-2]
 
 print(len(data))
 
