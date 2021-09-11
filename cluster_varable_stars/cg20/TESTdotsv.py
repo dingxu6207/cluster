@@ -56,11 +56,13 @@ lista = ['distance','VSXRA', 'VSXDEC', 'cg20RA', 'cg20DEC', 'cg20name']
 dfallradec = pd.DataFrame(allradec, columns= lista)
 
 df4 = [VSXdata, dfallradec]
-result = pd.concat(df4, axis=1)
-resultsort = result.sort_values(by='distance')
+resultsort = pd.concat(df4, axis=1)
+#resultsort = result.sort_values(by='distance')
+#resultsort = result.sort_values('cg20name')
 print(str(len(resultsort.iloc[0,1]))+resultsort.iloc[0,1])
 DataEW = resultsort[resultsort.iloc[:,1] == 'EW'+' '.join(' 'for i in range(14)) +' '] #14=(30-2)/2
 
+DataEW = DataEW[DataEW.iloc[:,7].astype(np.float)<0.01]
 resultsort.to_csv('allvsx.csv', index=0)
 DataEW.to_csv('EW.csv', index=0)
 
